@@ -1,0 +1,146 @@
+@import './variables';
+
+
+.rw-widget {
+  &.rw-dropdownlist {
+    // border-radius: $form-field-border-radius;
+    // background-color: $form-field-bg-color;
+    border: $form-field-border;
+    height: $form-field-height;
+    & > .rw-input {
+      line-height: $form-field-height;
+      height: $form-field-height;
+    }
+    &:hover {
+      // background-color: darken($form-field-bg-color, 2%);
+      // border-color: darken($form-field-bg-color, 2%);
+    }
+  }
+  &.rw-popup {
+    // border-bottom-left-radius: $button-border-radius;
+    // border-bottom-right-radius: $button-border-radius;
+    background-color: #fff;
+    border: none;
+    padding: 0;
+    box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.2);
+    left: 10px;
+    right: 10px;
+  }
+  .rw-list,
+  .rw-selectlist {
+    padding: 0;
+    & > .rw-list-option {
+      padding: $form-field-padding-x $form-field-padding-y;
+      border: none;
+      border-radius: 0;
+      &:focus,
+      &:active {
+        outline: none;
+      }
+      &.rw-state-focus {
+        border: none;
+        // box-shadow: inset 0px 0px 0px 1px $primary;
+        border-radius: none;
+      }
+      &.rw-state-selected {
+        box-shadow: none;
+        border: none;
+        // background: $primary;
+        color: $white;
+      }
+    }
+  }
+}
+
+.rw-multiselect {
+  // border-radius: $form-field-border-radius;
+  // background-color: $form-field-bg-color;
+  // border: $form-field-border;
+  min-height: $form-field-height;
+  .rw-multiselect-wrapper {
+    min-height: $form-field-height;
+    // background-color: $form-field-bg-color;
+    & > .rw-input {
+      line-height: $form-field-height;
+      min-height: $form-field-height;
+      background-color: transparent;
+    }
+    .rw-multiselect-taglist {
+      & > li {
+        border-radius: 0;
+        // background-color: $primary;
+        border: none;
+        color: $white;
+        margin-left: 4px;
+        padding: 2px 5px;
+        .rw-tag-btn {
+          padding-left: 2px;
+        }
+      }
+    }
+  }
+}
+
+
+
+// not equal
+.multiselect-wrap {
+  display: flex;
+  flex-direction: row;
+  .rw-multiselect {
+    flex: 1;
+    &.--notequal {
+      .rw-multiselect-wrapper {
+        .rw-multiselect-taglist {
+          & > li {
+            background-color: #ff5959;
+          }
+        }
+      }
+    }
+  }
+  &.--with-values {
+    .rw-multiselect {
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+  }
+  .btn-multiselect-notequal {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-width: 40px;
+    border-top-right-radius: 2px;
+    border-bottom-right-radius: 2px;
+    background-color: #ff5959;
+    &:hover {
+      background-color: darken(#ff5959, 5%);
+    }
+    img {
+      display: inline-block;
+      width: 10px;
+      height: 12px;
+      &.equal {
+        display: none;
+      }
+    }
+  }
+  .rw-multiselect {
+    &.--notequal {
+      & ~ .btn-multiselect-notequal {
+        // background-color: $primary;
+        &:hover {
+          // background-color: darken($primary, 5%);
+        }
+        img {
+          &.notequal {
+            display: none;
+          }
+          &.equal {
+            display: inline-block;
+          }
+        }
+      }
+    }
+  }
+}

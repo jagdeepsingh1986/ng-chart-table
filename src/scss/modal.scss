@@ -1,0 +1,204 @@
+@import './variables';
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(0,0,0,.6);
+  z-index: 999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.modal {
+  width: 480px;
+  &.bigger {
+    width: 560px;
+  }
+  background-color: $white;
+  border-radius: 2px;
+  box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.4);
+  .modal-header {
+    position: relative;
+    min-height: 40px;
+    .modal-title {
+      margin: 0;
+      text-align: center;
+      padding: 30px 10px;
+      font-weight: normal;
+      color: #666;
+      font-size: 1.6em;
+    }
+    .modal-close {
+      position: absolute;
+      display: block;
+      top: 5px;
+      right: 10px;
+      text-decoration: none;
+      color: #ccc;
+      &:hover {
+        color: darken(#ccc, 10%);
+      }
+      font-size: 1.3em;
+    }
+  }
+  .modal-content {
+    padding: 10px;
+  }
+  .modal-footer {
+    padding: 10px;
+    border-top: 1px solid #e6edf4;
+    background: #f8fafc;
+    .errors {
+      ul {
+        margin-top: 0;
+        text-align: center;
+        li {
+          color: $danger;
+        }
+      }
+    }
+    .actions {
+      display: flex;
+      .btn {
+        flex: 1;
+      }
+    }
+  }
+  &.modal-download {
+    .modal-content {
+      padding: 0;
+      .file-type {
+        display: flex;
+        flex-direction: row;
+        .file-type-field {
+          flex: 1;
+          input[type=radio] {
+            display: none;
+          }
+          input[type=radio] + label{
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-top: 1px solid #e6edf4;
+            border-right: 1px solid #e6edf4;
+            border-bottom: 1px solid #e6edf4;
+            background: #f8fafc;
+            min-height: 150px;
+            flex-direction: column;
+            text-decoration: none;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            cursor: pointer;
+            .icon {
+              position: relative;
+              color: #aaa;
+              font-size: 2.8em;
+              margin-bottom: 3px;
+            }
+            .text {
+              color: #aaa;
+              font-weight: bold;
+              text-transform: uppercase;
+            }
+          }
+          input[type=radio]:checked + label{
+            .icon {
+              &:after {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                content: "\f00c";
+                font: normal normal normal 14px/1 FontAwesome;
+                color: $white;
+                position: absolute;
+                width: 20px;
+                height: 20px;
+                top: -10px;
+                left: -10px;
+                background: darken($success, 5%);
+                border-radius: 50%;
+              }
+            }
+            &[for='file-type-pdf']{
+              background-color: $primary;
+              border-color: $primary;
+              .icon {
+                color: $white;
+              }
+              .text {
+                color: $white;
+              }
+            }
+            &[for='file-type-xlsx']{
+              background-color: $primary;
+              border-color: $primary;
+              .icon {
+                color: $white;
+              }
+              .text {
+                color: $white;
+              }
+            }
+            &[for='file-type-csv']{
+              background-color: $primary;
+              border-color: $primary;
+              .icon {
+                color: $white;
+              }
+              .text {
+                color: $white;
+              }
+            }
+          }
+          &:last-child {
+            input[type=radio] + label{
+              border-right: none;
+            }
+          }
+        }
+      }
+      .email-input {
+        padding: 10px;
+        border-top: 1px solid #e6edf4;
+        input {
+          margin: 0;
+        }
+      }
+      .send-to-email{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column-reverse;
+        padding: 25px 0;
+        .field {
+          input[type=checkbox] {
+            display: none;
+          }
+          input[type=checkbox] + label{
+            margin-bottom: 5px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 40px;
+            height: 40px;
+            text-decoration: none;
+            font-size: 1.4em;
+            color: #ddd;
+            border: 1px solid #ddd;
+            border-radius: 50%;
+            cursor: pointer;
+          }
+          input[type=checkbox]:checked + label{
+            color: $success;
+            border-color: $success;
+          }
+        }
+      }
+    }
+  }
+}

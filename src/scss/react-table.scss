@@ -1,0 +1,245 @@
+@import './variables';
+
+$table-header-groups-border-right: 1px solid rgba(0,0,0,.4);
+$table-header-border-right: 1px solid rgba(0,0,0,0.08);
+$table-cell-padding: 12px;
+
+.ReactTable {
+  &.chart-data {
+    border: none;
+    .rt-table {
+      font-size: 0.8em;
+      .rt-td,
+      .rt-th {
+        padding: 12px;
+      }
+      .rt-thead {
+        box-shadow: none;
+        // background-color: $report-table-header-bg-color;
+        border-bottom: none;
+        .rt-tr {
+          text-align: left;
+          text-transform: uppercase;
+        }
+        .rt-th {
+          &.-sort-desc {
+            // box-shadow: inset 0 3px 0 0 $primary;
+          }
+          &.-sort-asc {
+            // box-shadow: inset 0 -3px 0 0 $primary;
+          }
+          &.table-header-r_name {
+            text-align: left;
+          }
+        }
+        &.-headerGroups {
+          .rt-th {
+            text-align: center;
+            // color: $white;
+            font-weight: bold;
+            // background: $report-table-header-groups-bg-color;
+            border-right: $table-header-groups-border-right;
+            &.table-header-r_name {
+              text-align: left;
+            }
+            &:first-child {
+              border-top-left-radius: 2px;
+            }
+            &:last-child {
+              border-top-right-radius: 2px;
+            }
+          }
+        }
+        &.-header {
+          .rt-th {
+            border-right: $table-header-border-right;
+            text-align: right;
+            font-weight: bold;
+            &:first-child {
+              text-align: left;
+            }
+            &.table-header-r_name {
+              text-align: left;
+            }
+          }
+        }
+      }
+      .rt-tbody {
+        .rt-tr-group {
+          border-bottom: none;
+          .rt-tr {
+            text-align: right;
+            .rt-td {
+              // overflow: initial;
+              // text-overflow: unset;
+              border-right: 1px solid rgba(0,0,0,.08);
+              &:first-child {
+                text-align: left;
+              }
+              &.table-column-r_name {
+                text-align: left;
+              }
+              .n-value {
+                color: $danger;
+                font-weight: bold;
+                display: inline-flex;
+                justify-content: center;
+                align-items: center;
+                .nc-icon {
+                  margin-left: 2px;
+                  font-size: 1em;
+                }
+              }
+            }
+            &.-odd {
+              // background-color: $report-table-body-row-odd-bg-color;
+            }
+            &.-is-weekday {
+              // background-color: $report-table-body-row-weekday-bg-color;
+            }
+            &:not(.-padRow){
+              &:hover{
+                // background: lighten($primary, 10%);
+                // color: $white;
+              }
+            }
+          }
+        }
+      }
+      .rt-tfoot {
+        border-bottom: none;
+        box-shadow: none;
+        font-weight: bold;
+        text-transform: uppercase;
+        // background-color: $report-table-footer-bg-color;
+        // color: $white;
+        .rt-tr {
+          text-align: right;
+          .rt-td {
+            padding: 0;
+            .footerCellInner {
+              padding: 12px;
+              border-bottom: $table-header-groups-border-right;
+              border-right: $table-header-groups-border-right;
+              &:last-child {
+                border-bottom: none;
+              }
+            }
+            // border-right: 1px solid darken($report-table-footer-bg-color, 4%);
+            &:first-child,
+            &.table-column-r_name {
+              .footerCellInner {
+                text-align: left;
+              }
+            }
+            &.table-column-id {
+              .footerCellInner {
+                text-indent: -999em;
+              }
+            }
+          }
+        }
+      }
+    }
+    .-pagination {
+      box-shadow: none;
+      border-width: 1px;
+      padding: 0;
+      font-size: 0.8em;
+      border-top: none;
+      opacity: 1;
+      border-bottom-left-radius: 3px;
+      border-bottom-right-radius: 3px;
+      .-previous,
+      .-center,
+      .-next {
+        // background: $report-table-header-groups-bg-color;
+        opacity: 1;
+      }
+      .-previous {
+        border-bottom-left-radius: 3px;
+      }
+      .-next {
+        border-bottom-right-radius: 3px;
+      }
+      .-previous,
+      .-next {
+        .-btn {
+          // color: $white;
+          border-radius: 0;
+          text-transform: uppercase;
+          font-weight: bold;
+          background: rgba(0,0,0,0.2);
+          &:hover {
+            // background-color: $primary;
+            // color: $white;
+          }
+          &[disabled] {
+            opacity: 0.5;
+            &:hover {
+              background: rgba(0,0,0,0.4);
+            }
+          }
+        }
+      }
+      .-center{
+        .-pageInfo {
+          color: $white;
+          .-pageJump {
+            input {
+              border-radius: 0;
+              width: 60px;
+              text-align: left;
+            }
+          }
+        }
+      }
+    }
+    &.fixed-header {
+      .rt-table {
+        .rt-thead {
+          &.-headerGroups {
+            @include md-viewport {
+              position: fixed;
+              top: $header-min-height;
+              left: $sidebar-width + $panel-margin;
+              right: $panel-margin;
+            }
+          }
+          &.-header {
+            @include md-viewport {
+              position: fixed;
+              top: $header-min-height + 35;
+              left: $sidebar-width + $panel-margin;
+              right: $panel-margin;
+              border-bottom: 1px solid #efefef;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@include md-viewport {
+  body {
+    &.collapsed {
+      .ReactTable {
+        &.chart-data {
+          &.fixed-header {
+            .rt-table {
+              .rt-thead {
+                &.-headerGroups {
+                  left: $sidebar-collapsed-width + $panel-margin;
+                }
+                &.-header {
+                  left: $sidebar-collapsed-width + $panel-margin;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
