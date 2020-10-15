@@ -12,7 +12,7 @@ import { GRAPH_TYPE } from '../../shared/enums/app-enums';
 export class ChartAndTableComponent implements OnInit {
 
   @Input() setChartTheme: any = [];
-  @Input() chartType: string = GRAPH_TYPE.SPLINE;
+  @Input() chartType: GRAPH_TYPE = GRAPH_TYPE.SPLINE;
   @Input() chartTitle: string = null;
   @Input() chartSubTitle: string = null;
   @Input() xAxisCategories: Array<string> = [];
@@ -31,7 +31,7 @@ export class ChartAndTableComponent implements OnInit {
   private config = {};
 
   
-
+  // TODO:
   private GRAPH_YAXIS_OPTIONS_DEFAULT = {
     title: {
       text: null
@@ -45,6 +45,7 @@ export class ChartAndTableComponent implements OnInit {
     this.chartInit();
   }
 
+    // TODO:
   private initialize() {
 
   }
@@ -130,6 +131,8 @@ export class ChartAndTableComponent implements OnInit {
 
     }
   }
+
+    // TODO:
   private getChartYAxis(chartSeries, stacked = false) {
     let chartYAxis;
     if (stacked) {
