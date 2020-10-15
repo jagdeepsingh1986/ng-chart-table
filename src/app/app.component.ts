@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DummyDataService } from './shared/dummy-data/dummy-data.service';
 import * as _theme from './shared/chart-and-table/themes/simple';
+import { GRAPH_TYPE } from './shared/enums/app-enums';
 
 
 @Component({
@@ -11,7 +12,7 @@ import * as _theme from './shared/chart-and-table/themes/simple';
 export class AppComponent implements OnInit {
 
    public chartTheme = _theme.DEFAULT_THEME;
-   public chartType = 'areaspline';//'spline';//' areaspline';
+   public chartType = GRAPH_TYPE.AREA_SPLINE;
    public series = [];
    public xAxisCategories = [];
    public rowData = [];

@@ -2,11 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import * as Highcharts from 'highcharts';
 import _sortBy from 'lodash-es/sortBy';
 import * as _ from 'lodash';
-// import chroma from 'chroma-js';
-// import * as moment from 'moment';
-// import { GRAPH_COLUMN_NAME } from '../constants/graphConstants';
-// import { DAY_DATE_FORMAT, DATE_FORMAT } from '../constants/siteConstants';
-// import { formatNumber } from '../common-utils/common-utils';
+import { GRAPH_TYPE } from '../../shared/enums/app-enums';
 
 @Component({
   selector: 'app-chart-and-table',
@@ -16,7 +12,7 @@ import * as _ from 'lodash';
 export class ChartAndTableComponent implements OnInit {
 
   @Input() setChartTheme: any = [];
-  @Input() chartType: string = 'spline';
+  @Input() chartType: string = GRAPH_TYPE.SPLINE;
   @Input() chartTitle: string = null;
   @Input() chartSubTitle: string = null;
   @Input() xAxisCategories: Array<string> = [];
@@ -34,15 +30,7 @@ export class ChartAndTableComponent implements OnInit {
   private selectors = [];
   private config = {};
 
-  private GRAPH_SERIE_OPTIONS_DEFAULT = {
-    connectNulls: true
-  };
-
-  private GRAPH_XAXIS_OPTIONS_DEFAULT = {
-    title: {
-      text: null
-    }
-  };
+  
 
   private GRAPH_YAXIS_OPTIONS_DEFAULT = {
     title: {
