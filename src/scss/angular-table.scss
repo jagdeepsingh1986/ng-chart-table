@@ -24,17 +24,21 @@ $lightblue: #75d6fb;
     )
   );
 
-  .ag-header {
+  .ag-header-row-column-group {
     // or write CSS selectors to make customisations beyond what the parameters support
     //text-style: italic;
     background-color: $grayBlack;
+    color: $white !important;
+  }
+  .ag-header-row {
+    border-right: 1px solid $white;
   }
 
   .ag-header-cell-text {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    color: $white !important;
+    //color: $white !important;
   }
   .ag-icon {
     font-family: "agGridAlpine";
@@ -46,12 +50,13 @@ $lightblue: #75d6fb;
     text-transform: none;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    color: $white;
+    //color: $white;
   }
   .ag-ltr {
     .ag-cell {
       //border-right-width: 1px;
       border-right: 1px solid rgba(0, 0, 0, 0.08);
+      //width: fit-content !important;
     }
     .ag-cell:first-child {
       text-align: left;

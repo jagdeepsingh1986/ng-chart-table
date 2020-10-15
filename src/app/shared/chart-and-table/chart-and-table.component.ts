@@ -19,6 +19,7 @@ export class ChartAndTableComponent implements OnInit {
   @Input() chartSeries: Array<object> = [];
   @Input() columnDefs: Array<object> = [];
   @Input() tableData: Array<object> = [];
+  @Input() defaultColDef: object = {};
 
   public Highcharts: typeof Highcharts = Highcharts; // Highcharts, it's Highcharts
   public chartOptions: object = {}
@@ -30,7 +31,7 @@ export class ChartAndTableComponent implements OnInit {
   private selectors = [];
   private config = {};
 
-  
+
   // TODO:
   private GRAPH_YAXIS_OPTIONS_DEFAULT = {
     title: {
@@ -41,13 +42,21 @@ export class ChartAndTableComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-  
+
     this.chartInit();
+    this.tableInit();
   }
 
-    // TODO:
+  // TODO:
   private initialize() {
 
+  }
+
+  private tableInit() {
+    this.defaultColDef = {
+      resizable: true,
+      suppressSizeToFit: true
+    }
   }
 
   private chartInit() {
@@ -132,7 +141,7 @@ export class ChartAndTableComponent implements OnInit {
     }
   }
 
-    // TODO:
+  // TODO:
   private getChartYAxis(chartSeries, stacked = false) {
     let chartYAxis;
     if (stacked) {

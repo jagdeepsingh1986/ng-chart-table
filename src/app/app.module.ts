@@ -7,13 +7,11 @@ import { HighchartsChartModule } from 'highcharts-angular';
 import { ChartAndTableComponent } from './shared/chart-and-table/chart-and-table.component';
 import { AgGridModule } from 'ag-grid-angular';
 import { DummyDataService } from './shared/dummy-data/dummy-data.service';
-import { ChartAndTableComponentBKP } from './shared/chart-and-table/chart-backup.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ChartAndTableComponent,
-    ChartAndTableComponentBKP
+    ChartAndTableComponent
   ],
   imports: [
     BrowserModule,

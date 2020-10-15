@@ -66,13 +66,38 @@ export class AppComponent implements OnInit {
     */
    private tableColumnDefs() {
       this.columnDefs = [
-         { headerName: 'DATE', field: 'date', sortable: true, filter: true },
-         { headerName: 'SQ', field: 'sq', sortable: true, filter: true },
-         { headerName: 'EXCL', field: 'excl', sortable: true, filter: true },
-         { headerName: 'INCL', field: 'incl', sortable: true, filter: true },
-         { headerName: 'WSP', field: 'wsp', sortable: true, filter: true },
-         { headerName: 'MARKUP', field: 'markup', sortable: true, filter: true },
-         { headerName: 'VALUE', field: 'value', sortable: true, filter: true },
+         {
+            headerName: '',
+            children: [
+               { headerName: 'DATE', field: 'date', sortable: true, filter: true }
+            ]
+         },
+         {
+            headerName: 'SALES',
+            children: [
+               { headerName: 'SQ', field: 'sq', sortable: true, filter: true },
+               { headerName: 'EXCL', field: 'excl', sortable: true, filter: true },
+               { headerName: 'INCL', field: 'incl', sortable: true, filter: true },
+               { headerName: 'WSP', field: 'wsp', sortable: true, filter: true },
+            ]
+         },
+         {
+            headerName: 'MARGIN',
+            children: [
+               { headerName: 'MARKUP', field: 'markup', sortable: true, filter: true },
+               { headerName: 'VALUE', field: 'value', sortable: true, filter: true }
+            ]
+         },
+         {
+            headerName: 'INVENTORY',
+            children: [
+
+               { headerName: 'WSP', field: 'wsp', sortable: true, filter: true },
+               { headerName: 'MARKUP', field: 'markup', sortable: true, filter: true },
+               { headerName: 'VALUE', field: 'value', sortable: true, filter: true }
+            ]
+         }
+
       ]
    }
 }
