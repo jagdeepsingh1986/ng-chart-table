@@ -1,0 +1,72 @@
+@import "./variables";
+
+$table-header-groups-border-right: 1px solid rgba(0, 0, 0, 0.4);
+$table-header-border-right: 1px solid rgba(0, 0, 0, 0.08);
+$table-cell-padding: 12px;
+
+// colors
+$gray: lightgray;
+$grayBlack: #3c4a53;
+$lightblue: #75d6fb;
+
+.ag-table-size {
+  height: 32.25em;
+  width: 100%;
+}
+.ag-theme-alpine {
+  @include ag-theme-alpine(
+    (
+      // use theme parameters where possible
+        // alpine-active-color: $lightblue
+        font-family: ("Helvetica Neue", Helvetica, "archivo", Arial, sans-serif),
+      font-size: 0.9em,
+      //font-weight: bold
+    )
+  );
+
+  .ag-header {
+    // or write CSS selectors to make customisations beyond what the parameters support
+    //text-style: italic;
+    background-color: $grayBlack;
+  }
+
+  .ag-header-cell-text {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: $white !important;
+  }
+  .ag-icon {
+    font-family: "agGridAlpine";
+    //font-size: 16px;
+    line-height: 16px;
+    font-style: normal;
+    //font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    color: $white;
+  }
+  .ag-ltr {
+    .ag-cell {
+      //border-right-width: 1px;
+      border-right: 1px solid rgba(0, 0, 0, 0.08);
+    }
+    .ag-cell:first-child {
+      text-align: left;
+    }
+  }
+  .ag-row {
+    // font-size: 14px;
+    text-align: right;
+    font-family: "Helvetica Neue", Helvetica, "archivo", Arial, sans-serif !important;
+    font-size: 0.9em;
+    //font-weight: bold;
+  }
+  .ag-row-hover {
+    /* putting in !important so it overrides the theme's styling as it hovers the row also */
+    background-color: $lightblue !important;
+    color: $white;
+  }
+}

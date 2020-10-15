@@ -1,0 +1,10 @@
+export const REPORT_HEADER = 'REPORT_HEADER';
+export const NUMERAL_FORMAT = '0,0.[00]';
+export const NUMERAL_WHOLE_FORMAT = '0,0';
+export const DATE_FORMAT = 'DD.MM.YYYY';
+export const DAY_DATE_FORMAT = 'dd, DD.MM';
+export const DATETIME_FORMAT = 'DD.MM.YYYY HH:mm:ss';
+export const TABLE_DATA_INDEX = 0;
+export const TABLE_PAGE_SIZE = 20;
+export const MODAL_REPORT_DOWNLOAD = 'MODAL_REPORT_DOWNLOAD';
+export const MODAL_REPORT_INFO = 'MODAL_REPORT_INFO';
