@@ -69,31 +69,32 @@ export class AppComponent implements OnInit {
          {
             headerName: '',
             children: [
-               { headerName: 'DATE', field: 'date' }
+               { headerName: 'DATE', field: 'date', sortable: true, filter: true }
             ]
          },
          {
-            headerName: 'Sales',
+            headerName: 'SALES',
             children: [
-               { headerName: 'SQ', field: 'sq' },
-               { headerName: 'EXCL', field: 'excl' },
-               { headerName: 'INCL', field: 'incl' },
-               { headerName: 'WSP', field: 'wsp' },
+               { headerName: 'SQ', field: 'sq', sortable: true, filter: true },
+               { headerName: 'EXCL', field: 'excl', sortable: true, filter: true },
+               { headerName: 'INCL', field: 'incl', sortable: true, filter: true },
+               { headerName: 'WSP', field: 'wsp', sortable: true, filter: true },
             ]
          },
          {
-            headerName: 'Margin',
+            headerName: 'MARGIN',
             children: [
-               { headerName: 'MARKUP', field: 'markup' },
-               { headerName: 'VALUE', field: 'value' }
+               { headerName: 'MARKUP', field: 'markup', sortable: true, filter: true },
+               { headerName: 'VALUE', field: 'value', sortable: true, filter: true }
             ]
          },
          {
-            headerName: 'Inventory',
+            headerName: 'INVENTORY',
             children: [
-               { headerName: 'WSP', field: 'wsp' },
-               { headerName: 'MARKUP', field: 'markup' },
-               { headerName: 'VALUE', field: 'value' }
+
+               { headerName: 'WSP', field: 'wsp', sortable: true, filter: true },
+               { headerName: 'MARKUP', field: 'markup', sortable: true, filter: true },
+               { headerName: 'VALUE', field: 'value', sortable: true, filter: true }
             ]
          }
 

@@ -8,13 +8,9 @@
                 </highcharts-chart>
             </div>
 
-            <div class="panel table-wrapper ag-table-size">
-                <ag-grid-angular id="datatable" class="ag-theme-alpine ag-table-size"  
-                [rowData]="tableData"
-                [columnDefs]="columnDefs"
-                [defaultColDef]="defaultColDef"
-                (gridReady)="onGridReady($event)"
-                (firstDataRendered)="onFirstDataRendered($event)">
+            <div class="panel table-wrapper">
+                <ag-grid-angular id="datatable" class="ag-table-size ag-theme-alpine" [rowData]="tableData"
+                    [columnDefs]="columnDefs">
                 </ag-grid-angular>
             </div>
         </div>
