@@ -3,33 +3,46 @@
 $table-header-groups-border-right: 1px solid rgba(0, 0, 0, 0.4);
 $table-header-border-right: 1px solid rgba(0, 0, 0, 0.08);
 $table-cell-padding: 12px;
-
-// colors
-$gray: lightgray;
-$grayBlack: #3c4a53;
-$lightblue: #75d6fb;
+$table-font-family: "Helvetica Neue", Helvetica, "archivo", Arial, sans-serif;
+$table-sort-header: inset 0 3px 0 0 #6accf1;
 
 .ag-table-size {
-  height: 32.25em;
-  width: 100%;
+  height: 100%;
+  //width: 100%;
 }
 .ag-theme-alpine {
   @include ag-theme-alpine(
     (
       // use theme parameters where possible
         // alpine-active-color: $lightblue
-        font-family: ("Helvetica Neue", Helvetica, "archivo", Arial, sans-serif),
-      font-size: 0.9em,
-      //font-weight: bold
     )
   );
 
   .ag-header {
-    // or write CSS selectors to make customisations beyond what the parameters support
-    //text-style: italic;
-    background-color: $grayBlack;
+    //border-right: 2px solid $white;
+    border-bottom: none;
+    font-family: $table-font-family !important;
+    font-size: 0.9em;
   }
-
+  .ag-header-row-column-group {
+    // or write CSS selectors to make customisations beyond what the parameters support
+    background-color: $report-table-header-groups-bg-color;
+    color: $white !important;
+  }
+  .ag-header-group-cell {
+    border-right: $table-header-groups-border-right;
+  }
+  .ag-header-group-cell-label {
+    justify-content: center;
+    text-transform: uppercase;
+  }
+  .ag-header-row-column {
+    // or write CSS selectors to make customisations beyond what the parameters support
+    background-color: $report-table-header-bg-color;
+  }
+  .ag-header-cell {
+    border-right: $table-header-border-right;
+  }
   .ag-header-cell-text {
     overflow: hidden;
     text-overflow: ellipsis;
@@ -48,25 +61,68 @@ $lightblue: #75d6fb;
     -moz-osx-font-smoothing: grayscale;
     color: $white;
   }
+  .ag-row-odd {
+    background-color: $report-table-header-bg-color;
+  }
+  .ag-row-even {
+    background-color: $report-table-body-row-odd-bg-color;
+  }
   .ag-ltr {
     .ag-cell {
       //border-right-width: 1px;
       border-right: 1px solid rgba(0, 0, 0, 0.08);
+<<<<<<< HEAD
+=======
+      //border-bottom: none;
+>>>>>>> 79512d1... did grid SCSS changes.
     }
     .ag-cell:first-child {
       text-align: left;
+      //border-bottom: none;
     }
   }
   .ag-row {
     // font-size: 14px;
     text-align: right;
-    font-family: "Helvetica Neue", Helvetica, "archivo", Arial, sans-serif !important;
+    font-family: $table-font-family !important;
     font-size: 0.9em;
     //font-weight: bold;
+    border-top-style: unset !important;
   }
   .ag-row-hover {
     /* putting in !important so it overrides the theme's styling as it hovers the row also */
-    background-color: $lightblue !important;
+    background-color: $report-table-body-row-hover-bg-color !important;
     color: $white;
+  }
+  .ag-sort-ascending-icon,
+  .ag-sort-descending-icon {
+    display: none;
+  }
+  // .ag-header-cell-sorted-desc,
+  // .ag-header-cell-sorted-asc {
+  //   box-shadow: inset 0 3px 0 0 #6accf1;
+  // }
+  .ag-header-cell-sortable {
+    &[aria-sort="ascending"] {
+      box-shadow: $table-sort-header;
+    }
+    &[aria-sort="descending"] {
+      box-shadow: $table-sort-header;
+    }
+  }
+
+  .ag-body-viewport-wrapper.ag-layout-normal {
+    overflow-x: unset;
+    overflow-y: hidden;
+  }
+  ::-webkit-scrollbar {
+    -webkit-appearance: none;
+    width: 0.1em;
+    height: 0.2em;
+  }
+  ::-webkit-scrollbar-thumb {
+    border-radius: 4px;
+    background-color: rgba(0, 0, 0, 0.5);
+    box-shadow: 0 0 1px rgba(255, 255, 255, 0.5);
   }
 }
