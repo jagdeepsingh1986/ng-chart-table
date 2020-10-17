@@ -25,6 +25,10 @@ export class ChartAndTableComponent implements OnInit {
   public chartOptions: object = {}
   private yAxisConfig: any = [];
 
+  // table variables
+  private gridApi;
+  private gridColumnApi;
+
   // TODO:
   private graphMeta = {};
   private selectorGroups = [];
@@ -52,13 +56,21 @@ export class ChartAndTableComponent implements OnInit {
 
   }
 
+  /**
+   * 
+   */
   private tableInit() {
     this.defaultColDef = {
-      resizable: true,
-      suppressSizeToFit: true
+      resizable: false,
+      suppressSizeToFit: false,
+      unSortIcon: false,
+      sortable: true
     }
   }
 
+  /**
+   * 
+   */
   private chartInit() {
     this.Highcharts.setOptions(this.setChartTheme);
     this.setYAxis();
@@ -115,6 +127,9 @@ export class ChartAndTableComponent implements OnInit {
     };
   }
 
+  /**
+   * 
+   */
   private setYAxis() {
     const count = this.chartSeries.length;
     if (count > 0) {
@@ -182,8 +197,26 @@ export class ChartAndTableComponent implements OnInit {
     return chartYAxis;
   }
 
+  /**
+   * 
+   * @param params 
+   */
+  public onGridReady(params) {
+    this.gridApi = params.api;
+    this.gridColumnApi = params.columnApi;
+    this.gridApi.sizeColumnsToFit();
+  }
+
+  /**
+   * 
+   * @param params 
+   */
+  public onFirstDataRendered(params) {
+  
+  }
   // Demonstrate chart instance
   logChartInstance(chart: Highcharts.Chart) {
     console.log('Chart instance: ', chart);
   }
+  
 }
