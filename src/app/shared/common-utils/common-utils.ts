@@ -1,5 +1,5 @@
-import { NUMERAL_FORMAT } from '../constants/siteConstants';
-
+import { NUMERAL_FORMAT, DATE_FORMAT } from '../constants/siteConstants';
+import * as moment from 'moment';
 
 
 /**
@@ -15,3 +15,15 @@ export const formatNumber = (number, suffix = '', format = NUMERAL_FORMAT) => {
     }
     return number;
 };
+
+export function isWeekday(dateValue): boolean {
+    const formatedDate = moment(dateValue).format(DATE_FORMAT);
+    const date = moment(formatedDate, DATE_FORMAT, true);
+    if (date.isValid()) {
+      const isWeekday = [0, 6].indexOf(date.toDate().getDay()) !== -1;
+      if (isWeekday) {
+        return true;
+      }
+    }
+    return false;
+  }

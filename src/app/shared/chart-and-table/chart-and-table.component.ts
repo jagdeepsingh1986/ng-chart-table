@@ -5,6 +5,7 @@ import * as _ from 'lodash';
 import { GRAPH_TYPE } from '../../shared/enums/app-enums';
 import * as moment from 'moment';
 import { DATE_FORMAT } from '../constants/siteConstants';
+import { isWeekday } from '../common-utils/common-utils';
 
 @Component({
   selector: 'app-chart-and-table',
@@ -26,6 +27,7 @@ export class ChartAndTableComponent implements OnInit {
   public Highcharts: typeof Highcharts = Highcharts; // Highcharts, it's Highcharts
   public chartOptions: object = {}
   private yAxisConfig: any = [];
+  private xAxisPlotBands = [];
 
   // table variables
   private gridApi;
@@ -37,13 +39,6 @@ export class ChartAndTableComponent implements OnInit {
   private selectors = [];
   private config = {};
 
-
-  // TODO:
-  private GRAPH_YAXIS_OPTIONS_DEFAULT = {
-    title: {
-      text: null
-    }
-  };
 
   constructor() { }
 
@@ -69,41 +64,30 @@ export class ChartAndTableComponent implements OnInit {
       unSortIcon: false,
       sortable: true
     }
-
-    
   }
 
   /**
    * 
    * @param params 
    */
-  public getRowStyle(params){  }
+  public getRowStyle(params) { }
 
   /**
    * 
    * @param params 
    */
-  public getTableRowClass(params){
-    const formatedDate = moment(params.data.date).format(DATE_FORMAT);
-    const date = moment(formatedDate, DATE_FORMAT,true);
-    if (date.isValid()) {
-      const isWeekday = [0, 6].indexOf(date.toDate().getDay()) !== -1;
-      if (isWeekday) {
-        return '-is-weekday';
-      }
-    }
-    return '';
+  public getTableRowClass(params) {
+    return isWeekday(params.data.date) ? '-is-weekday' : '';
   }
 
-  
   /**
    * 
    */
   private chartInit() {
     this.Highcharts.setOptions(this.setChartTheme);
     this.setYAxis();
+    this.setChartPlotsColor();
     this.chartOptions = {
-
       chart: {
         type: this.chartType,
         zoomType: 'x',
@@ -118,6 +102,7 @@ export class ChartAndTableComponent implements OnInit {
       },
       xAxis: {
         categories: this.xAxisCategories,
+        plotBands: this.xAxisPlotBands
       },
       yAxis: this.yAxisConfig,
       tooltip: {
@@ -142,7 +127,6 @@ export class ChartAndTableComponent implements OnInit {
         itemMarginTop: 0,
         itemMarginBottom: 10
       },
-
       plotOptions: {
         areaspline: {
           fillOpacity: 0.09,
@@ -181,48 +165,27 @@ export class ChartAndTableComponent implements OnInit {
         row['yAxis'] = index;
       });
 
+
+
     }
   }
 
-  // TODO:
-  private getChartYAxis(chartSeries, stacked = false) {
-    let chartYAxis;
-    if (stacked) {
-      chartYAxis = {
-        title: {
-          enabled: true,
-          text: '0..100'
-        }
-      };
-    } else {
-      chartYAxis = [];
-      let yAxisGroups = [];
-      _.each(chartSeries, (series, i) => {
-        let seriesYAxis = series.yAxis;
-        let seriesColor = series.color;
-        let yAxisGroup = _.find(yAxisGroups, group => {
-          return group.yAxis === seriesYAxis;
-        });
-        if (!yAxisGroup) {
-          yAxisGroups.push({
-            yAxis: seriesYAxis,
-            color: seriesColor
-          });
-        }
-      });
-      _.each(yAxisGroups, yAxisGroup => {
-        let yAxisItem = Object.assign({}, this.GRAPH_YAXIS_OPTIONS_DEFAULT, {
-          labels: {
-            style: {
-              color: yAxisGroup.color
-            }
-          }
-        });
-        chartYAxis.push(yAxisItem);
-      });
-    }
-
-    return chartYAxis;
+  /**
+   * 
+   */
+  private setChartPlotsColor() {
+    _.each(this.xAxisCategories, (dayObj, index) => {
+      if (isWeekday(dayObj)) {
+        const from = index > 0.5 ? index - 0.5 : index;
+        const to = index + 0.5;
+        const plotBands = {
+          from: from,
+          to: to,
+          color: '#f5f5f5'
+        };
+        this.xAxisPlotBands.push(plotBands);
+      }
+    });
   }
 
   /**
@@ -241,9 +204,7 @@ export class ChartAndTableComponent implements OnInit {
    * 
    * @param params 
    */
-  public onFirstDataRendered(params) {
-
-  }
+  public onFirstDataRendered(params) {  }
   // Demonstrate chart instance
   logChartInstance(chart: Highcharts.Chart) {
     console.log('Chart instance: ', chart);
