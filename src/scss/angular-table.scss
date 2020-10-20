@@ -4,7 +4,8 @@ $table-header-groups-border-right: 1px solid rgba(0, 0, 0, 0.4);
 $table-header-border-right: 1px solid rgba(0, 0, 0, 0.08);
 $table-cell-padding: 12px;
 $table-font-family: "Helvetica Neue", Helvetica, "archivo", Arial, sans-serif;
-$table-sort-header: inset 0 3px 0 0 #6accf1;
+$table-sort-header-asc: inset 0 -3px 0 0 #6accf1;
+$table-sort-header-desc: inset 0 3px 0 0 #6accf1;
 
 .ag-table-size {
   height: 100%;
@@ -24,6 +25,7 @@ $table-sort-header: inset 0 3px 0 0 #6accf1;
     font-family: $table-font-family !important;
     font-size: 0.9em;
   }
+ 
   .ag-header-row-column-group {
     // or write CSS selectors to make customisations beyond what the parameters support
     background-color: $report-table-header-groups-bg-color;
@@ -42,11 +44,16 @@ $table-sort-header: inset 0 3px 0 0 #6accf1;
   }
   .ag-header-cell {
     border-right: $table-header-border-right;
+     text-align:  right;
+  }
+  .ag-header-cell:first-child {
+    text-align:  left;
   }
   .ag-header-cell-text {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    flex: 1;
     //color: $white !important;
   }
   .ag-icon {
@@ -67,6 +74,9 @@ $table-sort-header: inset 0 3px 0 0 #6accf1;
   .ag-row-even {
     background-color: $report-table-body-row-odd-bg-color;
   }
+  .-is-weekday{
+    background-color: $report-table-body-row-weekday-bg-color;
+  }
   .ag-ltr {
     .ag-cell {
       //border-right-width: 1px;
@@ -74,7 +84,6 @@ $table-sort-header: inset 0 3px 0 0 #6accf1;
     }
     .ag-cell:first-child {
       text-align: left;
-      //border-bottom: none;
     }
   }
   .ag-row {
@@ -100,10 +109,10 @@ $table-sort-header: inset 0 3px 0 0 #6accf1;
   // }
   .ag-header-cell-sortable {
     &[aria-sort="ascending"] {
-      box-shadow: $table-sort-header;
+      box-shadow: $table-sort-header-asc;
     }
     &[aria-sort="descending"] {
-      box-shadow: $table-sort-header;
+      box-shadow: $table-sort-header-desc;
     }
   }
 
