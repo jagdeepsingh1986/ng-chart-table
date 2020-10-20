@@ -13,6 +13,8 @@
                 [rowData]="tableData"
                 [columnDefs]="columnDefs"
                 [defaultColDef]="defaultColDef"
+                [getRowStyle]="getRowStyle"
+                [getRowClass]="getTableRowClass"
                 (gridReady)="onGridReady($event)"
                 (firstDataRendered)="onFirstDataRendered($event)">
                 </ag-grid-angular>

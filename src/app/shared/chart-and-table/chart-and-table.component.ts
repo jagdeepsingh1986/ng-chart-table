@@ -3,6 +3,8 @@ import * as Highcharts from 'highcharts';
 import _sortBy from 'lodash-es/sortBy';
 import * as _ from 'lodash';
 import { GRAPH_TYPE } from '../../shared/enums/app-enums';
+import * as moment from 'moment';
+import { DATE_FORMAT } from '../constants/siteConstants';
 
 @Component({
   selector: 'app-chart-and-table',
@@ -61,13 +63,39 @@ export class ChartAndTableComponent implements OnInit {
    */
   private tableInit() {
     this.defaultColDef = {
+      width: 170,
       resizable: false,
       suppressSizeToFit: false,
       unSortIcon: false,
       sortable: true
     }
+
+    
   }
 
+  /**
+   * 
+   * @param params 
+   */
+  public getRowStyle(params){  }
+
+  /**
+   * 
+   * @param params 
+   */
+  public getTableRowClass(params){
+    const formatedDate = moment(params.data.date).format(DATE_FORMAT);
+    const date = moment(formatedDate, DATE_FORMAT,true);
+    if (date.isValid()) {
+      const isWeekday = [0, 6].indexOf(date.toDate().getDay()) !== -1;
+      if (isWeekday) {
+        return '-is-weekday';
+      }
+    }
+    return '';
+  }
+
+  
   /**
    * 
    */
@@ -205,6 +233,8 @@ export class ChartAndTableComponent implements OnInit {
     this.gridApi = params.api;
     this.gridColumnApi = params.columnApi;
     this.gridApi.sizeColumnsToFit();
+    //const style = this.gridApi.getRowClass();
+    //console.log('Style: ', style);
   }
 
   /**
@@ -212,11 +242,11 @@ export class ChartAndTableComponent implements OnInit {
    * @param params 
    */
   public onFirstDataRendered(params) {
-  
+
   }
   // Demonstrate chart instance
   logChartInstance(chart: Highcharts.Chart) {
     console.log('Chart instance: ', chart);
   }
-  
+
 }
