@@ -17,8 +17,7 @@ export const formatNumber = (number, suffix = '', format = NUMERAL_FORMAT) => {
 };
 
 export function isWeekday(dateValue): boolean {
-    const formatedDate = moment(dateValue).format(DATE_FORMAT);
-    const date = moment(formatedDate, DATE_FORMAT, true);
+    const date = moment(dateValue);
     if (date.isValid()) {
       const isWeekday = [0, 6].indexOf(date.toDate().getDay()) !== -1;
       if (isWeekday) {
