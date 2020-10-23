@@ -3,6 +3,9 @@ import * as Highcharts from 'highcharts';
 import _sortBy from 'lodash-es/sortBy';
 import * as _ from 'lodash';
 import { GRAPH_TYPE } from '../../shared/enums/app-enums';
+import * as moment from 'moment';
+import { DATE_FORMAT } from '../constants/siteConstants';
+import { isWeekday } from '../common-utils/common-utils';
 
 @Component({
   selector: 'app-chart-and-table',
@@ -19,10 +22,16 @@ export class ChartAndTableComponent implements OnInit {
   @Input() chartSeries: Array<object> = [];
   @Input() columnDefs: Array<object> = [];
   @Input() tableData: Array<object> = [];
+  @Input() defaultColDef: object = {};
 
   public Highcharts: typeof Highcharts = Highcharts; // Highcharts, it's Highcharts
   public chartOptions: object = {}
   private yAxisConfig: any = [];
+  private xAxisPlotBands = [];
+
+  // table variables
+  private gridApi;
+  private gridColumnApi;
 
   // TODO:
   private graphMeta = {};
@@ -30,31 +39,55 @@ export class ChartAndTableComponent implements OnInit {
   private selectors = [];
   private config = {};
 
-  
-  // TODO:
-  private GRAPH_YAXIS_OPTIONS_DEFAULT = {
-    title: {
-      text: null
-    }
-  };
 
   constructor() { }
 
   ngOnInit(): void {
-  
+
     this.chartInit();
+    this.tableInit();
   }
 
-    // TODO:
+  // TODO:
   private initialize() {
 
   }
 
+  /**
+   * 
+   */
+  private tableInit() {
+    this.defaultColDef = {
+      width: 170,
+      resizable: false,
+      suppressSizeToFit: false,
+      unSortIcon: false,
+      sortable: true
+    }
+  }
+
+  /**
+   * 
+   * @param params 
+   */
+  public getRowStyle(params) { }
+
+  /**
+   * 
+   * @param params 
+   */
+  public getTableRowClass(params) {
+    return isWeekday(params.data.date) ? '-is-weekday' : '';
+  }
+
+  /**
+   * 
+   */
   private chartInit() {
     this.Highcharts.setOptions(this.setChartTheme);
     this.setYAxis();
+    this.setChartPlotsColor();
     this.chartOptions = {
-
       chart: {
         type: this.chartType,
         zoomType: 'x',
@@ -69,6 +102,7 @@ export class ChartAndTableComponent implements OnInit {
       },
       xAxis: {
         categories: this.xAxisCategories,
+        plotBands: this.xAxisPlotBands
       },
       yAxis: this.yAxisConfig,
       tooltip: {
@@ -93,7 +127,6 @@ export class ChartAndTableComponent implements OnInit {
         itemMarginTop: 0,
         itemMarginBottom: 10
       },
-
       plotOptions: {
         areaspline: {
           fillOpacity: 0.09,
@@ -106,6 +139,9 @@ export class ChartAndTableComponent implements OnInit {
     };
   }
 
+  /**
+   * 
+   */
   private setYAxis() {
     const count = this.chartSeries.length;
     if (count > 0) {
@@ -129,52 +165,49 @@ export class ChartAndTableComponent implements OnInit {
         row['yAxis'] = index;
       });
 
+
+
     }
   }
 
-    // TODO:
-  private getChartYAxis(chartSeries, stacked = false) {
-    let chartYAxis;
-    if (stacked) {
-      chartYAxis = {
-        title: {
-          enabled: true,
-          text: '0..100'
-        }
-      };
-    } else {
-      chartYAxis = [];
-      let yAxisGroups = [];
-      _.each(chartSeries, (series, i) => {
-        let seriesYAxis = series.yAxis;
-        let seriesColor = series.color;
-        let yAxisGroup = _.find(yAxisGroups, group => {
-          return group.yAxis === seriesYAxis;
-        });
-        if (!yAxisGroup) {
-          yAxisGroups.push({
-            yAxis: seriesYAxis,
-            color: seriesColor
-          });
-        }
-      });
-      _.each(yAxisGroups, yAxisGroup => {
-        let yAxisItem = Object.assign({}, this.GRAPH_YAXIS_OPTIONS_DEFAULT, {
-          labels: {
-            style: {
-              color: yAxisGroup.color
-            }
-          }
-        });
-        chartYAxis.push(yAxisItem);
-      });
-    }
-
-    return chartYAxis;
+  /**
+   * 
+   */
+  private setChartPlotsColor() {
+    _.each(this.xAxisCategories, (dayObj, index) => {
+      if (isWeekday(dayObj)) {
+        const from = index > 0.5 ? index - 0.5 : index;
+        const to = index + 0.5;
+        const plotBands = {
+          from: from,
+          to: to,
+          color: '#f5f5f5'
+        };
+        this.xAxisPlotBands.push(plotBands);
+      }
+    });
   }
 
+  /**
+   * 
+   * @param params 
+   */
+  public onGridReady(params) {
+    this.gridApi = params.api;
+    this.gridColumnApi = params.columnApi;
+    this.gridApi.sizeColumnsToFit();
+    //const style = this.gridApi.getRowClass();
+    //console.log('Style: ', style);
+  }
+
+  /**
+   * 
+   * @param params 
+   */
+  public onFirstDataRendered(params) {  }
   // Demonstrate chart instance
   logChartInstance(chart: Highcharts.Chart) {
     console.log('Chart instance: ', chart);
   }
+
 }
