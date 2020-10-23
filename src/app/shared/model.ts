@@ -1,7 +1,10 @@
 export class StyledDataset {
+    graphType: string;
     label: string;
     absoluteData: number[] = [];
     data: number[] = [];
+    categories: string[] = [];
+    isActive: boolean = false;
     lineTension = 0.3;
     fill: boolean | string = false;
     backgroundColor: string[] | string;

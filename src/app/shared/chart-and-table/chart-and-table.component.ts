@@ -2,20 +2,19 @@ import { Component, OnInit, Input } from '@angular/core';
 import * as Highcharts from 'highcharts';
 import _sortBy from 'lodash-es/sortBy';
 import * as _ from 'lodash';
-import { GRAPH_TYPE } from '../../shared/enums/app-enums';
-import * as moment from 'moment';
-import { DATE_FORMAT } from '../constants/siteConstants';
 import { isWeekday } from '../common-utils/common-utils';
+import { StyledDataset } from '../model';
 
 @Component({
   selector: 'app-chart-and-table',
   templateUrl: './chart-and-table.component.html',
   styleUrls: ['./chart-and-table.component.scss']
 })
+// TODO: Remove commented this code once code review completed and finalized.
 export class ChartAndTableComponent implements OnInit {
 
   @Input() setChartTheme: any = [];
-  @Input() chartType: GRAPH_TYPE = GRAPH_TYPE.SPLINE;
+  //@Input() chartType: GRAPH_TYPE = GRAPH_TYPE.SPLINE; 
   @Input() chartTitle: string = null;
   @Input() chartSubTitle: string = null;
   @Input() xAxisCategories: Array<string> = [];
@@ -23,6 +22,7 @@ export class ChartAndTableComponent implements OnInit {
   @Input() columnDefs: Array<object> = [];
   @Input() tableData: Array<object> = [];
   @Input() defaultColDef: object = {};
+  @Input() styledDataset: StyledDataset[];
 
   public Highcharts: typeof Highcharts = Highcharts; // Highcharts, it's Highcharts
   public chartOptions: object = {}
@@ -33,63 +33,35 @@ export class ChartAndTableComponent implements OnInit {
   private gridApi;
   private gridColumnApi;
 
-  // TODO:
-  private graphMeta = {};
-  private selectorGroups = [];
-  private selectors = [];
-  private config = {};
-
-
   constructor() { }
 
   ngOnInit(): void {
-
-    this.chartInit();
-    this.tableInit();
-  }
-
-  // TODO:
-  private initialize() {
-
+    this.initialize();
   }
 
   /**
    * 
    */
-  private tableInit() {
-    this.defaultColDef = {
-      width: 170,
-      resizable: false,
-      suppressSizeToFit: false,
-      unSortIcon: false,
-      sortable: true
+  private initialize() {
+    const dataCount = this.styledDataset ? this.styledDataset.length : 0;
+    if (dataCount > 0) {
+      this.chartInit();
+      this.tableInit();
     }
   }
 
   /**
-   * 
-   * @param params 
-   */
-  public getRowStyle(params) { }
-
-  /**
-   * 
-   * @param params 
-   */
-  public getTableRowClass(params) {
-    return isWeekday(params.data.date) ? '-is-weekday' : '';
-  }
-
-  /**
-   * 
-   */
+  * 
+  */
   private chartInit() {
     this.Highcharts.setOptions(this.setChartTheme);
+    this.setSeries();
     this.setYAxis();
     this.setChartPlotsColor();
+
     this.chartOptions = {
       chart: {
-        type: this.chartType,
+        type: this.styledDataset[0].graphType,
         zoomType: 'x',
         spacingTop: 20,
         width: 1800,
@@ -140,8 +112,8 @@ export class ChartAndTableComponent implements OnInit {
   }
 
   /**
-   * 
-   */
+ * 
+ */
   private setYAxis() {
     const count = this.chartSeries.length;
     if (count > 0) {
@@ -164,10 +136,20 @@ export class ChartAndTableComponent implements OnInit {
         this.yAxisConfig.push(obj);
         row['yAxis'] = index;
       });
-
-
-
     }
+  }
+
+  /**
+   * 
+   */
+  private setSeries() {
+    this.xAxisCategories = this.styledDataset[0].categories;
+    _.each(this.styledDataset, (item, index) => {
+      if (item.isActive) {
+        const row = { name: item.label.toUpperCase(), yAxis: index, data: item.data };
+        this.chartSeries.push(row);
+      }
+    });
   }
 
   /**
@@ -190,6 +172,33 @@ export class ChartAndTableComponent implements OnInit {
 
   /**
    * 
+   */
+  private tableInit() {
+    this.defaultColDef = {
+      width: 170,
+      resizable: false,
+      suppressSizeToFit: false,
+      unSortIcon: false,
+      sortable: true
+    }
+  }
+
+  /**
+   * 
+   * @param params 
+   */
+  public getRowStyle(params) { }
+
+  /**
+   * 
+   * @param params 
+   */
+  public getTableRowClass(params) {
+    return isWeekday(params.data.date) ? '-is-weekday' : '';
+  }
+
+  /**
+   * 
    * @param params 
    */
   public onGridReady(params) {
@@ -204,7 +213,7 @@ export class ChartAndTableComponent implements OnInit {
    * 
    * @param params 
    */
-  public onFirstDataRendered(params) {  }
+  public onFirstDataRendered(params) { }
   // Demonstrate chart instance
   logChartInstance(chart: Highcharts.Chart) {
     console.log('Chart instance: ', chart);
